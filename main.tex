@@ -66,10 +66,12 @@
 \section{1. Theory}
 \textbf{a. Consider a case where $Z$ is a binary instrument, $T$ is a discrete multi-valued treatment $(T_Z \in {0,1,2,...,J})$, $T = Z T_1 + (1 - Z)T_0$ is the observed level of treatment, and $Y$ is the outcome. Assume that the random variables $T_0, T_1, Y_0, Y_1, . . . , Y_J$ are jointly independent of $J$ and that the level of treatment is higher when $Z = 1$ than when $Z = 0$, i.e. $T_1 - T_0 \geq 0$. Further, assume that $Pr(T_1 \geq j \geq T_0) > 0$ for at least one $j \in {0,1,2,...J}$, which means that the instrument on average affects the level of treatment. Show that under these assumptions the Wald estimator is a weighted average of the causal response of a unit change in treatment,}
 \begin{equation}
+\label{Title1}
     \cfrac{E[Y| Z = 1] - E[Y | Z = 0]}{E[T| Z = 1] - E[T| Z = 0]} = \sum^J_{j=1} \omega_j  E[Y_{j1} - Y_{j0}|T_1 \geq j > T_0],
 \end{equation}
 \textbf{where the weight are }
 \begin{equation}
+\label{Title2}
 \omega_j = \cfrac{Pr(T_1\geq j > T_0)}{\sum^J_{i=1}Pr(T_1\geq i > T_0)}
 \end{equation}
 
@@ -103,29 +105,60 @@ E[T|Z=1]-E[T|Z=0]=\sum_{j=1}^J \pi_j \pi_C(E[T_j|Z=1, COM]-E[T_{j-1}|Z=0, COM])
 
 This term can be seen as the product of two probabilities:
 \begin{itemize}
-    \item $\pi_j^*\pi_C$: the share of compliers in the subpopulation that receive $T_j$;
+    \item $\pi_j$: the share of people receiving $T_j$ as treatment;
+    \item $\pi_C$: the share of compliers in the subgroup;
     \item $E[T_j|Z=1, COM]-E[T_{j-1}|Z=0, COM]$: the marginal effect on $T_j$ of the instrument $Z$.
 \end{itemize}
 
-Since they are independent, their product represent the joint probability of being a unity in $j$, receiveing $Z$ and increasing from $T_0$ to $T_1$. In math:
-1[]
+Since they are independent, their product represent the joint probability of being a unity in $j$ ($\pi_j$), having received $Z$ ($\pi_C$) and having his treatment increased from $T_0$ to $T_1$. In math:
+\begin{equation}
 E[T|Z=1]-E[T|Z=0]=\sum_{j=1}^J Pr(T_1\geq j>T_0) 
-\]
+\label{eq2}    
+\end{equation}
 
-For the numerator the reasoning is very similar. First we decompose $E[Y|Z=1]$ and $E[Y|Z=0]$ as a weighted average of the population groups. Then we can decompose further $E[Y=Y_j|Z=1]$ and $E[Y=Y_j|Z=0]$ using the LATE theorem. Recalling that $E[Y=Y_j|Z=1, ALW]=E[Y=Y_j|Z=0, ALW]$ and $E[Y=Y_j|Z=1, NEV]=E[Y=Y_j|Z=0, NEV]$, the LATE of $Y_j$ is:
+
+For the numerator, the reasoning is very similar. First we decompose $E[Y|Z=1]$ and $E[Y|Z=0]$ as a weighted average of the population groups. Then we can decompose further $E[Y=Y_j|Z=1]$ and $E[Y=Y_j|Z=0]$ using the LATE theorem. Recalling that $E[Y=Y_j|Z=1, ALW]=E[Y=Y_j|Z=0, ALW]$ and $E[Y=Y_j|Z=1, NEV]=E[Y=Y_j|Z=0, NEV]$, the LATE of $Y_j$ is:
 \[
 E[Y=Y_j|Z=1]-E[Y=Y_j|Z=0]=(E[Y=Y_j|Z=1, COM]-E[Y=Y_j|Z=0, COM])\pi_C
 \]
 
 However, again, the two terms refers to two different subgroups of the population, then by taking the sum in $j$, we can define:
+\begin{equation}
+    E[Y|Z=1]-E[Y|Z=0]=\sum_{j=1}^J \pi_j^*\pi_C E[Y_{j1}-Y_{j0}|Z,COM]
+    \label{eq1}
+\end{equation}
+
+We can now focus on the third term. Notice that:
 \[
-E[Y|Z=1]-E[Y|Z=0]=\pi_C\sum_{j=1}^J E[Y_{j1}-Y_{j0}|COM, Z] Pr(T_1\geq j T_0)
+E[Y_{j1}-Y_{j0}|Z,COM]= E[Y_{j1}-Y_{j0}|Z=1,COM]Pr(Z=1|COM)+ E[Y_{j1}-Y_{j0}|Z=0,COM]Pr(Z=0|COM)
 \]
 
-Notice that 
+However $E[Y_{j1}-Y_{j0}|Z=0,COM]=0$, then we have to focus only on the first addend. The probability that $Z=1$ being a complier, can be interpreted as the effect effect of the instrument on the probability of being treated, i.e. $E[T_j|Z=1, COM]-E[T_{j-1}|Z=0, COM]$. So:
+\[
+E[Y_{j1}-Y_{j0}|Z,COM]=E[Y_{j1}-Y_{j0}|T_1\geq j>T_0](E[T_j|Z=1, COM]-E[T_{j-1}|Z=0, COM])
+\]
+
+Plugging the last identity in \eqref{eq1} and recalling \eqref{eq2}, we get:
+\begin{equation}
+    E[Y|Z=1]-E[Y|Z=0]=\sum_{j=1}^J E[Y_{j1}-Y_{j0}|T_1\geq j>T_0] Pr(T_1\geq j>T_0) 
+\end{equation}
+
+The Wald Estimator then can be written as:
+\[
+\cfrac{E[Y|Z=1]-E[Y|Z=0]}{E[T|Z=1]-E[T|Z=0]}=\cfrac{\sum_{j=1}^J E[Y_{j1}-Y_{j0}|T_1\geq j>T_0] Pr(T_1\geq j>T_0) }{\sum_{i=1}^J Pr(T_1\geq i>T_0) }
+\]
+\[
+\cfrac{E[Y|Z=1]-E[Y|Z=0]}{E[T|Z=1]-E[T|Z=0]}=\sum_{j=1}^J \cfrac{Pr(T_1\geq j>T_0)}{\sum_{i=1}^J Pr(T_1\geq i>T_0)} E[Y_{j1}-Y_{j0}|T_1\geq j>T_0]
+\]
+
+That is equivalent to the equations \eqref{Title1} and \eqref{Title2}.
+
+
+
 
 \textbf{b) Provide an interpretation of both factors on the RHS if Equation (1), i.e . $E [Y_j − Y_j−1 | T1 \geq j > T_0]$
 and $\omega_j$. What does the presence of both factors teach us about the local average treatment effect?\\
+
 c) In the lecture we have proven that in absence of defiers the IV estimate for an outcome $Y_i$, a binary treatment $D_i$ and a binary instrument $Z_i$ is
 \begin{equation}
     \beta^{IV*} = E(Y_i|D_i = 1) - E(Y_i|D_i = 0)) = E(Y_i_1 - Y_i_0|complier)
@@ -212,7 +245,7 @@ To have a lower bound we have to assume that the bias we observe is negative. In
 
 \textbf{Construct the instrument $z$ such that its Pearson correlation with \textit{x} is 0.5 while its correlation with $\epsilon$ is zero. Consider four different sample sizes: $N = 50$, $N = 100$, $N = 250$ and $N = 1000$. For each sample size, run at least 10,000 simulations whereby you estimate $\beta^{OLS}$ and $\beta^{IV}$ (choose fewer replications if you have problems with computing power). In the same graph, plot the sampling distributions for OLS and IV for all four sample sizes. Discuss the difference in shape of the sampling distributions between OLS and IV.}
 
-We constructed $x$, $z$ and $\epsilon$ through a random extraction of 10,000 observations. The three variable are correlated as required. Notice that, once we defined these three, the value of $\gamma_1$ can be defined as $\rho_{xz}\cfrac{\sigma_x}{\sigma_z}$. Its value then is defined by the ratio of the standard deviations, that are$\sigma_x=\sigma_z=\sigma_\epsilon=1$. In the second step, we derive $y=x+\epsilon$.
+We construct $x$, $z$ and $\epsilon$ through a random extraction of 10,000 observations. The three variable are correlated as required. Notice that, once we defined these three, the value of $\gamma_1$ can be defined as $\rho_{xz}\cfrac{\sigma_x}{\sigma_z}$. Its value then is defined by the ratio of the standard deviations, that are$\sigma_x=\sigma_z=\sigma_\epsilon=1$. In the second step, we derive $y=x+\epsilon$.
 
 Among our population of 10,000 of units, we run a bootstrap (10,000 iterations) of our OLS and IV estimates over four different samples.
 Graphics in figure \ref{Cor50} show clearly how the distributions of the the IV and OLS estimates change when the sample size increases.
@@ -329,11 +362,12 @@ F Statistic & 591.542$^{***}$ (df = 9; 30791) \\
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ Values in the parentheses are the standard errors.\\The dependent variable is logged earnings.
 \end{tabular} 
 \end{table}
-In table \ref{reg 1} , we present the regression summary of the simple OLS model while controlling for the fourth order polynomials of age and year of birth. In the table, we see that the estimate for schooling is significant at 1\%. Where as the estimate for year of birth is also significant at 10\%. We see that with an additional year of schooling there is 15.8 \% increase in earnings. This is only true when we control for higher order polynomials in our regression. In order for us to not to over-fit or under-fit the model we use the higher order polynomial. Additionally, despite adding the higher order polynomials we see the estimated $R^2$ and the $Adjusted R^2$  is 14.7\%\\
+In table \ref{reg 1} , we present the regression summary of the simple OLS model while controlling for the fourth order polynomials of age and year of birth. In the table, we see that the estimate for schooling is significant at 1\%. Where as the estimate for year of birth is also significant at 10\%. We see that with an additional year of schooling $\beta = 15.8$\% causing $15.8\5$ increase in earnings. This is only true when we control for higher order polynomials in our regression. In order for us to not to over-fit or under-fit the model we use the higher order polynomial. Additionally, despite adding the higher order polynomials we see the estimated $R^2$ and the $Adjusted R^2$  is 14.7\%\\
 
-An additionally step carried out is to compare the model from table \ref{reg 1} to table \ref{reg 2}. As we can see the results in the table \ref{reg 2}
+An additional step carried out is to compare the model from table \ref{reg 1} to table \ref{reg 2}. As we can see the results in the table \ref{reg 2}
 are the summary findings when we do not have higher order polynomials. We simply estimate the logged earnings as a function of age , year of birth (yob) and schooling. In this particular regression, we see that all the variables are significant at 90\%. Additionally, the estimate for schooling is 15.7 indicating that there is rise in earnings by 15.7\% with an additional year of schooling. This estimate in particular very close to the estimate obtained in table \ref{reg 1}. The adjusted$R^2$ and the $R^2$ in this case is comparatively smaller at 14\%. Therefore, we can conclude by saying that using the higher order polynomials is a better fit.\\
-is A common way to obtain causal estimates is to use changes in compulsory schooling laws for identification. In this case, birth cohorts born before 1933 $(yob<33)$ had to go to school until they were 14 years old, whereas compulsory schooling age was raised to 15 years for all cohorts born from 1933 onwards. This change in compulsory schooling laws can be used as an instrumental variable for the actual duration of schooling. The instrument is a dummy LAW that equals unity if a person is born 1933 or later and zero otherwise.
+
+
 \begin{table}[!htbp] \centering 
   \caption{Regression Summary: A Simple OLS Model} 
   \label{reg 2} 
@@ -364,9 +398,11 @@ Residual Std. Error & 0.496 (df = 30797) \\
 F Statistic & 1,673.896$^{***}$ (df = 3; 30797) \\ 
 \hline 
 \hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ The vales in the parentheses are standard errors\\(This regression is additional & used to compare regression with 4th order polynomial)
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ The vales in the parentheses are standard errors\\(This regression is additional \\and used to compare regression with 4th order polynomial)
 \end{tabular} 
 \end{table} 
+
+\textbf{A common way to obtain causal estimates is to use changes in compulsory schooling laws for identification. In this case, birth cohorts born before 1933 $(yob<33)$ had to go to school until they were 14 years old, whereas compulsory schooling age was raised to 15 years for all cohorts born from 1933 onwards. This change in compulsory schooling laws can be used as an instrumental variable for the actual duration of schooling. The instrument is a dummy LAW that equals unity if a person is born 1933 or later and zero otherwise.}
 \textbf{b) Discuss this instrument in theory, assuming that schooling Si is related to the instrument $Z_i$ by the latent assignment mechanism
 \begin{equation*}
     S_i = 1(\gamma_0+ \gamma_1 Z_i > \eta_i),\;\; with\;\; E(Z_i \eta _i) = 0
