@@ -57,9 +57,8 @@
  \usepackage[bf, small]{caption}
  \usepackage[justification=centering]{caption}
  \setcounter{secnumdepth}{0}
-\title{Problem Set 2 - Econometrics}
+\title{Problem Set 1 - Econometrics}
 \author{ Giacomo Lo Conte, Kun Wu, Francesca Eustacchi, Neeharika Kakunuri, Noor Ahmed Khoso }
-
 \begin{document}
 
 \maketitle
@@ -229,7 +228,7 @@ To have a lower bound we have to assume that the bias we observe is negative. In
 
 \section{2. Simulation Exercise}
 
-\textbf{An important property of the IV estimator is that it is biased in small samples but consistent. For this reason one should never write that an IV estimator is used to obtain unbiased estimates. We want to better understand the small sample properties through simulations of the sampling distribution of IV and OLS estimators. In all simulations, let x, y, z, u and ε be random variables and assume the data-generating process:}
+\textbf{An important property of the IV estimator is that it is biased in small samples but consistent. For this reason one should never write that an IV estimator is used to obtain unbiased estimates. We want to better understand the small sample properties through simulations of the sampling distribution of IV and OLS estimators. In all simulations, let $x, y, z, u & \epsilon$ be random variables and assume the data-generating process}
 
 \begin{equation}
     y = \alpha+\beta x+ \epsilon
@@ -300,7 +299,7 @@ In figure \ref{cor15} we can hardly observe the OLS distribution for a problem o
 The asymptotic variance of the IV estimator can be written as the variance matrix of the error times the inverse of the covariance of Z and X. In our simple univariate case $Z'X=Cov(x,z)=\rho_{xz}\sigma_z\sigma_x$=. The variance of the estimator, then, is inversely related to $\rho_{xz}$. For this reason, the weaker is the instrument and the higher is the variance of the IV estimator. This leads to problems for the statistical inference since the results are not significant even if unbiased.
 
 \newpage
-\section{Empirical Application}
+\section{3. Empirical Application}
 
 The empirical application is based on a cross-sectional dataset assign2.dta, which contains the following variables:
 \begin{itemize}
@@ -309,12 +308,14 @@ The empirical application is based on a cross-sectional dataset assign2.dta, whi
     \item \textit{yob}: year of birth
     \item \textit{schooling}: age at which the person left school.
 \end{itemize}
-a) The goal is to estimate the returns to education. For this purpose, estimate an OLS regression of \textit{logearn} on schooling, controlling for fourth-order polynomials in age and year of birth. Interpret the coefficient of schooling.
 
-The model that we estimate is given as:
-\begin{equation}
-    logearn_i = \beta_0 + \beta_1 {schooling} + \beta_2 {age} + \beta_3 {age^2} + \beta_4 {age^3} + \beta_5 {age^4} + \beta_6 {yob} + \beta_7 {yob^2} + \beta_8 {yob^3} + \beta_9 {yob^4}
-\end{equation}
+a) The goal is to estimate the returns to education. For this purpose, we estimate an OLS regression of \textit{logearn} on schooling, controlling for fourth-order polynomials in age and year of birth. Interpret the coefficient of schooling.
+
+The model that we estimate with the 4th order polynomial is given as:
+\begin{multline}
+    logearn_i = \beta_0 + \beta_1 {schooling} + \beta_2 {age} + \beta_3 {age^2} + \beta_4 {age^3} + \beta_5 {age^4} \\
+    + \beta_6 {yob} + \beta_7 {yob^2} + \beta_8 {yob^3} + \beta_9 {yob^4} + \epsilon_i
+\end{multline}
 
 \begin{table}[!htbp] \centering 
   \caption{Regression Summary: OLS with controlling for 4th order polynomial for age and yob} 
@@ -368,10 +369,10 @@ F Statistic & 591.542$^{***}$ (df = 9; 30791) \\
 \end{tabular} 
 \end{table}
 
-In table \ref{reg 1} , we present the regression summary of the simple OLS model while controlling for the fourth order polynomials of age and year of birth. In the table, we see that the estimate for schooling is significant at 1\%. Where as the estimate for year of birth is also significant at 10\%. We see that with an additional year of schooling $\beta = 15.8$\% causing $15.8\5$ increase in earnings. This is only true when we control for higher order polynomials in our regression. In order for us to not to over-fit or under-fit the model we use the higher order polynomial. Additionally, despite adding the higher order polynomials we see the estimated $R^2$ and the $Adjusted R^2$  is 14.7\%\\
+In table \ref{reg 1} , we present the regression summary of the simple OLS model while controlling for the fourth order polynomials of age and year of birth. In the table, we see that the estimate for schooling is significant at 1\%. Where as the estimate for year of birth is also significant at 10\%. We see that with an additional year of schooling $\beta = 15.8$\% causing $15.8\%$ increase in earnings. This is only true when we control for higher order polynomials in our regression. In order for us to not to over-fit or under-fit the model we use the higher order polynomial. Additionally, despite adding the higher order polynomials we see the estimated $R^2$ and the $Adjusted R^2$ is 14.7\%\\
 
 An additional step carried out is to compare the model from table \ref{reg 1} to table \ref{reg 2}. As we can see the results in the table \ref{reg 2}
-are the summary findings when we do not have higher order polynomials. We simply estimate the logged earnings as a function of age , year of birth (yob) and schooling. In this particular regression, we see that all the variables are significant at 90\%. Additionally, the estimate for schooling is 15.7 indicating that there is rise in earnings by 15.7\% with an additional year of schooling. This estimate is in particular very close to the estimate obtained in table \ref{reg 1}. The adjusted$R^2$ and the $R^2$ in this case is comparatively smaller at 14\%. Therefore, we can conclude by saying that using the higher order polynomials is a better fit.\\
+are the summary findings when we do not have higher order polynomials. We simply estimate the logged earnings as a function of age , year of birth (yob) and schooling. In this particular regression, we see that all the variables are significant at 90\%. Additionally, the estimate for schooling is 15.7 indicating that there is rise in earnings by 15.7\% with an additional year of schooling. This estimate is in particular very close to the estimate obtained in table \ref{reg 1}. The adjusted $R^2$ and the $R^2$ in this case is comparatively smaller at 14\%. Therefore, we can conclude by saying that using the higher order polynomials is a better fit.\\
 
 
 \begin{table}[!htbp] \centering 
@@ -408,24 +409,122 @@ F Statistic & 1,673.896$^{***}$ (df = 3; 30797) \\
 \end{tabular} 
 \end{table} 
 
-\textbf{A common way to obtain causal estimates is to use changes in compulsory schooling laws for identification. In this case, birth cohorts born before 1933 $(yob<33)$ had to go to school until they were 14 years old, whereas compulsory schooling age was raised to 15 years for all cohorts born from 1933 onwards. This change in compulsory schooling laws can be used as an instrumental variable for the actual duration of schooling. The instrument is a dummy LAW that equals unity if a person is born 1933 or later and zero otherwise.}
-\textbf{b) Discuss this instrument in theory, assuming that schooling Si is related to the instrument $Z_i$ by the latent assignment mechanism
+\textbf{A common way to obtain causal estimates is to use changes in compulsory schooling laws for identification. In this case, birth cohorts born before 1933 $(yob<33)$ had to go to school until they were 14 years old, whereas compulsory schooling age was raised to 15 years for all cohorts born from 1933 onwards. This change in compulsory schooling laws can be used as an instrumental variable for the actual duration of schooling. The instrument is a dummy LAW that equals unity if a person is born 1933 or later and zero otherwise.} \\
+
+\textbf{b) Discuss this instrument in theory, assuming that schooling $S_i$ is related to the instrument $Z_i$ by the latent assignment mechanism
 \begin{equation*}
     S_i = 1(\gamma_0+ \gamma_1 Z_i > \eta_i),\;\; with\;\; E(Z_i \eta _i) = 0
 \end{equation*}
 The random variable $\eta_i$ represents the individual resistance to treatment. Why could there be a
 first stage? Under what condition is this instrument valid? What are potential threats to validity?
 Furthermore, explain who are the compliers, always-takers and never-takers in this case. Would the IV estimate correspond to the average treatment effect (why or why not)?}\\
-\textbf{c) As in any good empirical project, begin with a graphical inspection of the relationships of interest. This is best done through binscatters. Produce and discuss the graphs listed below. In all graphs, include a vertical line at $yob=33$.
-\begin{itemize}
-    \item Plot the probability that a person leaves school before age 15 against the year of birth.
-    \item Binscatter of schooling and year of birth
-    \item Binscatter of log earnings and year of birth.
-\end{itemize}}
-\textbf{d) Calculate the Wald estimator (without controls) "by hand", i.e. based on conditional averages. Compare your results to those of a 2SLS estimation based on an inbuilt command (e.g. \textit{ivregress} in Stata or \textit{ivreg} in R). Interpret your results and compare them to the OLS results in a).}\\
 
-In table \ref{reg 3}, we present the summary of findings fro the regression of Outcome  \textit(logearn) and instrument variable \textit(LAW). We see that the instrument i.e, the LAW or compulsory schooling up to age 15 years rises the probability of schooling for an additional year by 99 units. The estimate for the instrument is statistically significant  at 10\%. The adjusted $R^2$ 13.6\% also explains the moderate yet significant impact of the instrument, which is definitely an incentive. We will discuss the impact it has on earnings. And this is the first stage regression in IV estimation.
-We can, in simple words say that the law of compulsory schooling of 15 years is a valid instrument,  gain of an additional year of schooling has an indirect impact on earnings via schooling. We will present a formal discuss of this proposition below.\\
+\textbf{b.1) Instrument Discussion.} The compulsory schooling law indicates the minimum exiting age of education. Provided a similar compulsory law for school entering age which requires students’ enrolment at the same given age, the changes in compulsory schooling law render the actual minimum years of schooling for individuals.
+
+The outcome of the change in law is limited to only affect the exiting age. Strictly speaking, the total year of schooling is only expected to have an increase without definitive entering age of schooling. In other words, the actual duration of schooling may not necessarily change. On the other hand, the law has no impact on any other aspects of education except the duration, for instance, no change in enrolment criteria, tuition fee, teaching quality, evaluation standard and qualification.
+
+The law executes on the basis of birth date which is considered as completely random assignment across individuals. The date of birth is also considered as an independent information that is unlikely associated with the difference in innate ability, or motivation, or family socio-economic background, that would introduce variations in the academic performance, or skill formation, which further leads to various occupations and discrepancy in income. Thus, we agree that all the other demographic factors are uncorrelated to the date of birth, and no reverse impact of date of birth. Then, based on the year of birth, the instrument is as good as randomly assigned.
+
+Given the latent assignment mechanism equation, \(\gamma_0+ \gamma_1 Z_i > \eta_i\), by construct, the instrument triggers the behavioural change through the preference threshold that defined by the resistance to treatment. There are three components in the equation: first, the fixed initial state of preference over resistance to treatment, $\gamma_0$; second, the span of alteration in preference corresponds to the individual response to the instrument, where the magnitude difference for the binary alteration in preference is captured by the parameter of willingness to accept the new law, $\gamma_1$; third, the fixed threshold of individual resistance to treatment, $\eta_i$. Thus, the channel of variation only presents in the second component.
+
+Assumption, \( E(Z_i \eta _i) = 0\), states that the resistance is independent of instrument. The resistance then must originate from other individual level characteristics, such as perspective of usefulness of schooling, direct cost of enrolment and opportunity cost of foregone earnings, which are uncorrelated to the new schooling law. On the other hand, the consideration of having compulsory additional year of schooling has no interest to affect the resistance. The law only activates this particular acceptance of new regulation in addition to the initial state which exceeds the resistance threshold to have individuals selected into the treatment. 
+
+This mechanism equation then further characterises the heterogeneity in compliant sub-population.  Groups of complier, never-taker, always-taker, and defier, which are indicated by the values of each parameter and the signs of $\gamma_1$. For instance, always-taker has initially high $\gamma_0$ to be treated without the presence of second term; never-taker may have high $\eta_i$, or small $\gamma_1$, or small $\gamma_0$ that impossible to exceed as the resistance threshold; defier typically has the negative sign for $\gamma_1$.\\
+
+\textbf{b.2) First Stage.} 
+There could be a first stage if 
+\begin{align}
+  S_i =S_{0i}+(S_{1i}-S_{0i})Z_i &=\alpha_0 + \alpha_1 Z_i + \xi_i \\
+E(S_{0i}-S_{1i}) &= 0  
+\end{align}
+From the assignment equation \(\gamma_0+ \gamma_1 Z_i > \eta_i\), we have the heterogeneous $\gamma_0$, $\gamma_1$, and the $\eta_i$. Such variations at individual level suggest that the behavioural change of having older graduation age cannot be completely determined by the instrument. Thus, ${S_i}$ is a function of heterogeneous response to the instrument, where $S_{0i}$ and $S_{1i}$ have different mean, $Z_i$ has effect on $S_i$. Suppose we have heterogeneous individuals $\emph{i} \not= $\emph{j},
+\begin{align*}
+  \alpha_{0i} & \not= \alpha_{0j} \\
+  \alpha_{1i} & \not= \alpha_{1j} \\
+  \eta_i & \not= \eta_j \\
+\end{align*}
+\textbf{b.3) Instrument Validity.}
+Except first stage, there are three assumptions need to hold for the validity of instrument.
+
+\textbf{Independence Assumption.} The instrument is based on birth year, and the date of birth is considered completely random and independent of individual decision. When the instrument design is independent of demographic structure, i.e., the treatment assignment criteria is independent of subjective decision on socio-economic background, we may agree that the instrument assignment is therefore satisfies independence assumption.
+
+\textbf{Exclusion Restriction.} Given our outcome variable of interest is individual growth in earnings, the birth year is unlikely correlated with the innate ability, motivation, interest of profession, which are observable and will affect the earnings, i.e. $E(Z|\epsilon_i)=0$, where the earnings by design are assumed to vary only because of the change in duration of compulsory schooling.
+
+\textbf{Monotonicity.} The instrument aims to introduce one additional year of schooling. When the instrument at least not reducing the actual minimum duration of schooling, the monotonicity assumption is satisfied. Given the change in duration is based on the previous compulsory schooling law, individuals are expected to at least not affected if they previously complied to the law. In other words, monotonicity holds as long as the instrument is independent of individual resistance to treatment.\\
+
+\textbf{b.4) Potential Threats.} From the internal validity by design, individuals may not receive the treatment which increase the duration of schooling. Consider the actual years of schooling is determined by both age of entering and age of exiting, the current compulsory schooling law only fixes one side of the duration. Although without any intuitive reason, there is possibility that individuals are treated but would still have the same duration (may even decrease) of schooling due to late enrolment (older entering age) and gap year (interrupted schooling). Thus, the design does not guarantee homogeneous treatment effect, instead, we may observe a heterogeneous treatment effect across population. Together with the uncertainty of policy implementation, the heterogeneous treatment effect weakens the instrument, which leads to nonzero correlation between instrument and treatment. This weak first-stage correlation will increase the variance that leads to estimation inconsistency and unreliable inference.
+
+In addition, at the time of observation, later the birth year less the working experience. We argue that income may grow at different rate for different age, where seniors tend to have higher income but little growth. Now depart from the differences among age groups, the reduced form estimate omits the effect of growing up environment for the cohorts, where cohort born at the same year are likely to share certain background which is different from other years. Regarding the demographic structure, birth year is not as good random as date of birth at days or months. The birthday cut off is “more” random compared to the completion of academic year. That says, there is difference for cohorts who born before and who born after the instrument, then the instrument is not assigned randomly, the independence assumption may be violated.
+
+For external validity at different contexts, additional information (such as tuition fee, other direct education cost, opportunity cost of foregone earning, subject taught, skill acquisition, labour market, etc.) are likely to violate the exclusion restriction and independence assumption. For instance, the affordability of the additional year of schooling may negatively associated with the individual resistance to treatment, thus the instrument will correlate with the unobserved confounding characteristics of not being treated and even positively associated with factors that lead to little income growth. When consider the upper tail of high in \emph{$logearn_i$}, duration of minimum schooling may not be informative, particularly for those who later obtained higher education. Similarly for the lower tail, the identification valid only when we impose strong assumption that individual always invest more on education within their constraints whenever it is possible. Thus, the extrapolating the LATE requires additional information from the population as well as reasonable assumptions on them. \\
+
+\textbf{b.5) Compliant Subpopulation.} The compliant subpopulation is characterised by the construct of assignment mechanism, where the three components vary at individual level. And by assumption, the compliant type exclusively depends on the resistance that originates from the individual background.
+
+Since from complier, $D_0_i=1$ and $D_1_i=1$, regardless which behavioural component that assigns individual into treatment, the resistance to treatment is overcome. For complier, the resistance must greater than the initial state ($\gamma_0$ < $\eta_i$), which means without the presence of new law, complier would not opt in for the duration of schooling.
+
+For always-taker, $D_0_i=D_1_i=1$, we have ($\gamma_0$ > $\eta_i$), which means the resistance to treatment on this instrument is always less than the initial state. With or without the law, always-taker would have longer duration of schooling, they are unaffected by the instrument given potentially high motivation to invest in education. For never-taker, $D_0_i=D_1_i=0$, they also will be unaffected by the presence of instrument given ($\gamma_0$ + $\gamma_1$$Z_i$ < $\eta_i$) where the resistance is sufficiently large enough to prevent any behavioural change.  \\
+
+\textbf{b.5) LATE and ATE.} 
+The causal effect of treatment on the treated includes both ATE on complier and always-taker, which is different from the IV estimate that only captures the ATE on complier. Similar argument holds for ATE of treatment on untreated.
+
+Suppose that how the instrument will affect the individual to be assigned to be treatment is not determined by composition of population, provided a constant treatment effect of ATT, the larger the complier size, the greater the LATE. Thus, IV estimate corresponds to the ATE. Now consider an alternative population where the composition of compliance differs, LATE decrease as the share of complier shrinks, where the IV gives the LATE for compliers, ATE is reduced in magnitude.
+
+Then, the unconditional ATE is the weight average of effects on all compliant subpopulation, and by monotonicity where the never-taker and always-taker are differenced out, the IV estimate obtained from Wald estimator essentially corresponds to the magnitude of ATE as well as the composition of sub-population.
+
+\newpage
+
+\textbf{c) As in any good empirical project, begin with a graphical inspection of the relationships of interest. This is best done through binscatters. Produce and discuss the graphs listed below. In all graphs, include a vertical line at $yob=33$.}\\
+
+\begin{itemize}
+    \item \textbf{Plot the probability that a person leaves school before age 15 against the year of birth.}
+\end{itemize}
+ {\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Binscatter 2.jpeg}
+    \caption{Binscatter - Probability of a person leaving school before 15 years of schooling}
+    \label{fig 1}
+    \end{figure}}
+The figure \ref{fig 1} is the binscatter of the Probability of an individual leaving school before the age of 15 plotted against the year of birth. We the see the green line vertically at the year of birth 1933. This line indicates the instrument that is the law of compulsory schooling till 15 years of age. As we can see, the probability of leaving school before 15 years is close to 0.8 before the law and has fallen drastically after the law. We find this to be an interesting observation.\\
+\begin{itemize}
+    \item \textbf{Binscatter of schooling and year of birth}
+\end{itemize}
+
+     {\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Binscatter 1.jpeg}
+    \caption{Binscatter - Schooling and year of birth}
+    \label{fig 2}
+    \end{figure}}
+In figure \ref{fig 2}, we present the binscatter of Schooling in years with the year of birth. We also include the vertical line in red indicating the year of birth $=33$. We believe that including this line gives us clear idea of what happened post implementation of the law of compulsory schooling which was implemented in 1933. We see that, most of the observations after this mark, have a steadily rising years of schooling. In conclusion, people who were given the instrument, particularly the compliers have seen undergone the treatment.
+\\
+\begin{itemize}
+    \item \textbf{Binscatter of log earnings and year of birth.}
+\end{itemize}
+      {\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Binscatter 3.jpeg}
+    \caption{Binscatter - Logged Earnings and year of birth}
+    \label{fig 3}
+    \end{figure}}
+
+Finally, in figure \ref{fig 3}, we see the binscatter of Logged Earnings and year of birth. This figure helps us understand if the treatment was significant in improving the earnings of individuals. With the oragne line indicating the year of birth as 1933, the year of compulsory 15 years of schooling law. We see that earnings have risen up-to 58\% with additional schooling years. In conclusion, we can say that, the law (in the case of compilers) have witnessed a significant increase because of undergoing the treatment which in this case is schooling.
+
+\newpage
+\textbf{d) Calculate the Wald estimator (without controls) "by hand", i.e. based on conditional averages. Compare your results to those of a 2SLS estimation based on an inbuilt command (e.g. \textit{ivregress} in Stata or \textit{ivreg} in R). Interpret your results and compare them to the OLS results in a)}\\
+
+Table \ref{reg 3} summarises the regression results for instrument variable (\textit{LAW}) and outcome variable (\textit{logearn}). With the presence of instrument, i.e., the LAW, duration of schooling increased by 0.99 unit, at 1\% statistically significance level, which is approximately one additional year. Based on the first stage results, we agree that the law of compulsory schooling until 15 years old is a valid instrument. In addition, consider the expected effect of instrument on schooling year is one additional year, which is unit of 1, the first stage estimate with value of 0.990 implies a considerable share of complier and always-taker. In fact, the intercept term with value of 14.634 also implies that without the presence of instrument, the sample mean of schooling exiting age is almost 15 years old. Consider the compliers will be only enrolled until 14 years old, followed by the discussion in previous section, value of 14.634 for constant term may suggest a dominant proportion of complier who will only enrol in school until 14 years old, $E(D_c|Z_0)=14$. Thus, suppose the number of always-taker is also small, We may expect a similar coefficient estimate from the Wald estimator as compared to reduced form results. \\ 
+
+From the reduced form, presented in table \ref{reg 4} is the estimate of the outcome on the instrument is given as 0.162. To obtain the Wald Estimator manually we simply obtain the ratio of: 
+\\
+\begin{align*}
+       \cfrac{ITT(Reduced Form)}{The first stage}
+\end{align*}
+ 
+
+\begin{center}
+    0.162/0.990 = 0.1633267 
+\end{center}
+\\
 \begin{table}[!htbp] \centering 
   \caption{Regression Summary : Treatment and Instrument} 
   \label{reg 3} 
@@ -453,7 +552,11 @@ F Statistic & 4,868.939$^{***}$ (df = 1; 30799) \\
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ The values in parenthesis are standard errors.
 \end{tabular} 
 \end{table} 
-In table \ref{reg 4} we present a formal discussion of the results of imposing the law of compulsory schooling up-to 15 years and returns to education. As we can see, the estimate obtained is 0.162, indicating that upon the imposition of the law, earnings are likely to increase by 16.2\% provided an individual complies with the law. And this casual inference occurs via schooling which in our case is the treatment. We call this the reduced form or intention to treat (ITT).
+
+\\
+
+In table \ref{reg 4} we present a formal discussion of the results of imposing the law of compulsory schooling up-to 15 years and returns to education , i.e, instrument and outcome. As we can see, the estimate obtained is 0.162, indicating that upon the imposition of the law, earnings are likely to increase by 16.2\% provided an individual complies with the law and under goes the treatment. And this causality occurs via schooling. We call this the reduced form or intention to treat (ITT).\\
+
 \begin{table}[!htbp] \centering 
   \caption{Regression Summary: Outcome and Instrument} 
   \label{reg 4} 
@@ -481,13 +584,9 @@ F Statistic & 607.678$^{***}$ (df = 1; 30799) \\
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ The values in parentheses are standard errors.
 \end{tabular} 
 \end{table} 
-
-Upon calculating the Wald Estimator by hand we obtain the estimate as 0.1633267. The Wald estimator is  the ratio of ITT(Reduced Form)/ The first stage.\\
-
-In table \ref{reg 3}, the estimate 0.990 is the first stage estimate. This estimate indicates that the compulsory schooling law up-to 15 years. And, from the reduced form, presented in table \ref{reg 4} is the estimate of the instrument on the outcome is given as 0.162. Therefore, $0.162/0.990 = 0.1633267$. We now compare the manually calculated Wald estimator with an in built function "ivreg" in R to run the 2SLS estimation. \\
-
-The findings are summarised in table \ref{reg 5}, in this case, to establish a casual estimate we regress earnings on the treatment. As we can see, The estimate for schooling is 0.1633, the estimate is also significant at 1\%. The estimate same as the Wald estimator calculated manually. The adjusted $R^2$ is at 13.8\% indicating that schooling causes 13.8\% variation in the earnings with an additional year of schooling.\\
-
+\\
+The findings from using the "ivreg" command in R, are summarised in table \ref{reg 5} .To establish a casual estimate we regress earnings on the treatment. As we can see, the estimate for schooling is 0.1633, the estimate is also significant at 1\%. The estimate same as the Wald estimator calculated manually. The adjusted $R^2$ is at 13.8\% indicating that schooling causes 13.8\% variation in the earnings with an additional year of schooling. Additionally, this is caused by the instrument, compulsory schooling upto 15 years of age. 
+\\
 \begin{table}[!htbp] \centering 
   \caption{IVREG with R code} 
   \label{reg 5} 
@@ -514,4 +613,6 @@ Residual Std. Error & 0.497 (df = 30799) \\
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ The values in parenthesis are standard errors.
 \end{tabular} 
 \end{table} 
+
+
 \end{document}
