@@ -101,7 +101,7 @@ Now consider the second term $E[T|Z=0]$. We can reason at the same way and split
 E[T=T_j|Z=1]-E[T=T_j|Z=0]=E[T=T_j|Z=1, COM]\pi_C-E[T=T_j|Z=0, COM]\pi_C
 \]
 
-Since this is a discrete multi-valued case, we need to spend some time to interpret what this represents. The LATE in this case is even more "local" then the binary case. Indeed, it represents the difference between those compliers who receive $T_j$ because treated by $Z$ and those who are not treated, otherwise they would have received $T_{j+1}$. In other words, they belong to two different groups of the population. To have comparable groups we need to observe the difference between $E[T=T_j|Z=1, COM]$ and $E[T=T_{j-1}|Z=0, COM]$. This is possible when we take the sum of that, recalling that $E[T=T_0|Z=1, COM]=0$:
+Since this is a discrete multi-valued case, we need to spend some time to interpret what this represents. The LATE in this case is even more "local" than the binary case. Indeed, it represents the difference between those compliers who receive $T_j$ because treated by $Z$ and those who are not treated, otherwise they would have received $T_{j+1}$. In other words, they belong to two different groups of the population. To have comparable groups we need to observe the difference between $E[T=T_j|Z=1, COM]$ and $E[T=T_{j-1}|Z=0, COM]$. This is possible when we take the sum of that, recalling that $E[T=T_0|Z=1, COM]=0$:
 \[
 E[T|Z=1]-E[T|Z=0]=\sum_{j=1}^J \pi_j \pi_C(E[T_j|Z=1, COM]-E[T_{j-1}|Z=0, COM])
 \]
@@ -444,7 +444,7 @@ From the assignment equation \(\gamma_0+ \gamma_1 Z_i > \eta_i\), we have the he
   \eta_i & \not= \eta_j \\
 \end{align*}
 \textbf{b.3) Instrument Validity.}
-Except first stage, there are three assumptions need to hold for the validity of instrument.
+Besides the first stage, there are three assumptions need to hold for the instrument validity.
 
 \textbf{Independence Assumption.} The instrument is based on birth year, and the date of birth is considered completely random and independent of individual decision. When the instrument design is independent of demographic structure, i.e., the treatment assignment criteria is independent of subjective decision on socio-economic background, we may agree that the instrument assignment is therefore satisfies independence assumption.
 
@@ -456,7 +456,7 @@ Except first stage, there are three assumptions need to hold for the validity of
 
 In addition, at the time of observation, later the birth year less the working experience. We argue that income may grow at different rate for different age, where seniors tend to have higher income but little growth. Now depart from the differences among age groups, the reduced form estimate omits the effect of growing up environment for the cohorts, where cohort born at the same year are likely to share certain background which is different from other years. Regarding the demographic structure, birth year is not as good random as date of birth at days or months. The birthday cut off is “more” random compared to the completion of academic year. That says, there is difference for cohorts who born before and who born after the instrument, then the instrument is not assigned randomly, the independence assumption may be violated.
 
-For external validity at different contexts, additional information (such as tuition fee, other direct education cost, opportunity cost of foregone earning, subject taught, skill acquisition, labour market, etc.) are likely to violate the exclusion restriction and independence assumption. For instance, the affordability of the additional year of schooling may negatively associated with the individual resistance to treatment, thus the instrument will correlate with the unobserved confounding characteristics of not being treated and even positively associated with factors that lead to little income growth. When consider the upper tail of high in \emph{$logearn_i$}, duration of minimum schooling may not be informative, particularly for those who later obtained higher education. Similarly for the lower tail, the identification valid only when we impose strong assumption that individual always invest more on education within their constraints whenever it is possible. Thus, the extrapolating the LATE requires additional information from the population as well as reasonable assumptions on them. \\
+For external validity at different contexts, additional information (such as tuition fee, other direct education cost, opportunity cost of foregone earning, subject taught, skill acquisition, labour market, etc.) are likely to violate the exclusion restriction and independence assumption. For instance, the affordability of the additional year of schooling may negatively associated with the individual resistance to treatment, thus the instrument will correlate with the unobserved confounding characteristics of not being treated and even positively associated with factors that lead to little income growth. When consider the upper tail in \emph{$logearn_i$}, duration of minimum schooling may not be informative, particularly for those who later obtained higher education. Similarly for the those in lower tail, the identification valid only when we impose strong assumption that individual always invest more on education within their constraints whenever it is possible. Thus, the extrapolating the LATE requires additional information from the population as well as reasonable assumptions on them. \\
 
 \textbf{b.5) Compliant Subpopulation.} The compliant subpopulation is characterised by the construct of assignment mechanism, where the three components vary at individual level. And by assumption, the compliant type exclusively depends on the resistance that originates from the individual background.
 
@@ -512,9 +512,10 @@ Finally, in figure \ref{fig 3}, we see the binscatter of Logged Earnings and yea
 \newpage
 \textbf{d) Calculate the Wald estimator (without controls) "by hand", i.e. based on conditional averages. Compare your results to those of a 2SLS estimation based on an inbuilt command (e.g. \textit{ivregress} in Stata or \textit{ivreg} in R). Interpret your results and compare them to the OLS results in a)}\\
 
-Table \ref{reg 3} summarises the regression results for instrument variable (\textit{LAW}) and outcome variable (\textit{logearn}). With the presence of instrument, i.e., the LAW, duration of schooling increased by 0.99 unit, at 1\% statistically significance level, which is approximately one additional year. Based on the first stage results, we agree that the law of compulsory schooling until 15 years old is a valid instrument. In addition, consider the expected effect of instrument on schooling year is one additional year, which is unit of 1, the first stage estimate with value of 0.990 implies a considerable share of complier and always-taker. In fact, the intercept term with value of 14.634 also implies that without the presence of instrument, the sample mean of schooling exiting age is almost 15 years old. Consider the compliers will be only enrolled until 14 years old, followed by the discussion in previous section, value of 14.634 for constant term may suggest a dominant proportion of complier who will only enrol in school until 14 years old, $E(D_c|Z_0)=14$. Thus, suppose the number of always-taker is also small, We may expect a similar coefficient estimate from the Wald estimator as compared to reduced form results. \\ 
+Table \ref{reg 3} summarises the regression results for instrument variable (\textit{LAW}) and outcome variable (\textit{logearn}). With the presence of instrument, i.e., the LAW, duration of schooling increased by 0.99 unit, at 1\% statistically significance level, which is approximately one additional year. Based on the first stage results, we agree that the law of compulsory schooling until 15 years old is a valid instrument. In addition, consider the expected effect of instrument on schooling year is one additional year, which is unit of 1, the first stage estimate with value of 0.990 implies a considerable share of complier and always-taker.\\
+In fact, the intercept term with value of 14.634 also implies that without the presence of instrument, the sample mean of schooling exiting age is almost 15 years old. Consider the compliers will be only enrolled until 14 years old, followed by the discussion in previous section, value of 14.634 for constant term may suggest a dominant proportion of complier who will only enrol in school until 14 years old, $E(D_c|Z_0)=14$. Thus, suppose the number of always-taker is also small, We may expect a similar coefficient estimate from the Wald estimator as compared to reduced form results. \\ 
 
-From the reduced form, presented in table \ref{reg 4} is the estimate of the outcome on the instrument is given as 0.162. To obtain the Wald Estimator manually we simply obtain the ratio of: 
+Table \ref{reg 4} we present the regression summary of imposing the law of compulsory schooling up-to 15 years and outcome, i.e, instrument and outcome. As we can see, the estimate obtained is 0.162, indicating that upon the imposition of the law, earnings are likely to increase by 16.2\% provided an individual complies with instrument and under goes the treatment this in our case is the LATE. To obtain the Wald Estimator manually we simply obtain the ratio of: 
 \\
 \begin{align*}
        \cfrac{ITT(Reduced Form)}{The first stage}
@@ -555,8 +556,6 @@ F Statistic & 4,868.939$^{***}$ (df = 1; 30799) \\
 
 \\
 
-In table \ref{reg 4} we present a formal discussion of the results of imposing the law of compulsory schooling up-to 15 years and returns to education , i.e, instrument and outcome. As we can see, the estimate obtained is 0.162, indicating that upon the imposition of the law, earnings are likely to increase by 16.2\% provided an individual complies with the law and under goes the treatment. And this causality occurs via schooling. We call this the reduced form or intention to treat (ITT).\\
-
 \begin{table}[!htbp] \centering 
   \caption{Regression Summary: Outcome and Instrument} 
   \label{reg 4} 
@@ -585,7 +584,7 @@ F Statistic & 607.678$^{***}$ (df = 1; 30799) \\
 \end{tabular} 
 \end{table} 
 \\
-The findings from using the "ivreg" command in R, are summarised in table \ref{reg 5} .To establish a casual estimate we regress earnings on the treatment. As we can see, the estimate for schooling is 0.1633, the estimate is also significant at 1\%. The estimate same as the Wald estimator calculated manually. The adjusted $R^2$ is at 13.8\% indicating that schooling causes 13.8\% variation in the earnings with an additional year of schooling. Additionally, this is caused by the instrument, compulsory schooling upto 15 years of age. 
+The findings from using the "ivreg" command in R, are summarised in table \ref{reg 5}. To establish a casual estimate we regress earnings on the treatment. As we can see, the estimate for schooling is 0.1633, the estimate is also significant at 1\%. The estimate same as the Wald estimator calculated manually. The adjusted $R^2$ is at 13.8\% indicating that schooling causes 13.8\% variation in the earnings with an additional year of schooling. Additionally, this is caused by the instrument, compulsory schooling upto 15 years of age. 
 \\
 \begin{table}[!htbp] \centering 
   \caption{IVREG with R code} 
